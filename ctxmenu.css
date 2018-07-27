@@ -1,0 +1,70 @@
+.ctxmenu {
+    position: absolute;
+    background-color: #fff;
+    padding: 8px 0;
+    min-width: 100px;
+    visibility: hidden;
+    opacity: 0;
+    /*-moz-border-radius: 4px;*/
+    border-radius: 4px;
+    /*-moz-transform: scale(0.8);*/
+    transform: scale(0.8);
+    /*-moz-transition: -moz-transform 0.12s cubic-bezier(0.0, 0.0, 0.2, 1), opacity 0.03s linear;*/
+    transition: transform 0.12s cubic-bezier(0.0, 0.0, 0.2, 1), opacity 0.03s linear;
+    /*-moz-box-shadow: 0 2px 2px 0 rgba(0,0,0,0.14), 0 1px 5px 0 rgba(0,0,0,0.12), 0 3px 1px -2px rgba(0,0,0,0.2);*/
+    box-shadow: 0 2px 2px 0 rgba(0,0,0,0.14), 0 1px 5px 0 rgba(0,0,0,0.12), 0 3px 1px -2px rgba(0,0,0,0.2);
+    will-change: visibility, opacity, transform;
+    overflow: hidden;
+}
+	.ctxmenu--dark {
+		background-color: #232323;
+		color: #fff;
+	}
+	.ctxmenu--open {
+		/*-moz-transform: scale(1);*/
+		transform: scale(1);
+		visibility: visible;
+		opacity: 1;
+	}
+.ctxmenu .ctxmenu--item {
+    font-family: Roboto, sans-serif;
+    font-size: 16px;
+    font-weight: 400;
+    color: #444444;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    cursor: pointer;
+    white-space: nowrap;
+    padding: 0 16px;
+    line-height: 48px;
+    user-select: none;
+    background-color: inherit;
+    /*-moz-transition: background-color .10s linear;*/
+    transition: background-color .10s linear;
+}
+    .ctxmenu--compact .ctxmenu--item {
+        font-size: 14px;
+        line-height: 32px;
+        padding: 0 12px;
+    }
+	.ctxmenu--dark .ctxmenu--item { 
+        color: #BBBBBB;
+        background-color: inherit;
+	}
+	.ctxmenu .ctxmenu--item:hover, .ctxmenu .ctxmenu--item:focus { background-color: rgba(0,0,0,.07); }
+	.ctxmenu .ctxmenu--item:active { background-color: rgba(0,0,0,.15); }
+	.ctxmenu--dark .ctxmenu--item:hover, .ctxmenu--dark .ctxmenu--item:focus { background-color: rgba(255,255,255,.06); }
+	.ctxmenu--dark .ctxmenu--item:active { background-color: rgba(255,255,255,.15); }
+	.ctxmenu .ctxmenu-divider { border-bottom: 1px solid rgba(0,0,0,0.12); }
+	.ctxmenu .ctxmenu--item .material-icons {
+		color: #6E6E6E;
+		padding: 0 20px 0 0;
+        width: auto;
+        height: auto;
+	}
+    .ctxmenu--compact .ctxmenu--item .material-icons {
+        padding: 0 12px 0 0; 
+        font-size: 18px;
+    }
+	.ctxmenu--dark .ctxmenu--item .material-icons { color: #919191; }
