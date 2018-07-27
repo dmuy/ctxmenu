@@ -28,21 +28,37 @@ if (typeof jQuery === 'undefined') { throw new Error('CTXMenu: This plugin requi
             if (that.options.compact) that.ctxwrapper.addClass('ctxmenu--compact');
             if (that.options.theme === 'dark') that.ctxwrapper.addClass('ctxmenu--dark');
 
-			$.each(list, function(index, item) {
-				if (item.divider) {
-					that.ctxwrapper.append('<nav-item class="ctxmenu--divider"></nav-item>');
-				} else {
-					var menu = $("<nav-item class='ctxmenu--item'></nav-item>");
-
-					menu.html(item.menu).click(function(e) {
-						item.action(that.elem, e);
-						that.hide();
-					}).appendTo(that.ctxwrapper);
-				}
-				
-			});
+            addMenuItems(list, that.ctxwrapper, false);
 
 			that.ctxwrapper.appendTo('body');
+
+			function addMenuItems(items, elem, isSub) {
+				var menuWrapper = isSub ? $('<nav class="ctxmenu--sub"></nav>') : elem;
+
+				$.each(items, function (idx, item) {
+					if (item.divider) {
+						menuWrapper.append('<nav-item class="ctxmenu--divider"></nav-item>');
+					} else {
+						var menu = $("<nav-item class='ctxmenu--item'></nav-item>");
+
+						if (item.action)
+							menu.click(function(e) {
+								item.action(that.elem, e);
+								that.hide();
+							});
+
+						menu.html(item.menu).appendTo(menuWrapper);
+
+						if (item.subs && item.subs.length > 0) {
+							menu.addClass('ctxmenu--hassubs');
+
+							addMenuItems(item.subs, menu, true);
+						}
+					}
+				});
+
+				if (isSub) menuWrapper.appendTo(elem);
+			}
 		},
 
 		show : function(e) {
@@ -54,7 +70,6 @@ if (typeof jQuery === 'undefined') { throw new Error('CTXMenu: This plugin requi
 					_anchored ? 
 						(_anchorPos === 'left' ? this.elem.offset().left 
 							: $(window).width() - (this.elem.offset().left + this.elem.outerWidth(true)))
-						// : _anchorPos == 'left' ? e.clientX + 10 : $(window).width() - e.clientX
 						: e.clientX + 10
 				).addClass('ctxmenu--open');
 		},
