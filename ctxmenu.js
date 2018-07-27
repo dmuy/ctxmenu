@@ -29,12 +29,17 @@ if (typeof jQuery === 'undefined') { throw new Error('CTXMenu: This plugin requi
             if (that.options.theme === 'dark') that.ctxwrapper.addClass('ctxmenu--dark');
 
 			$.each(list, function(index, item) {
-				var menu = $("<nav-item class='ctxmenu--item'></nav-item>");
+				if (item.divider) {
+					that.ctxwrapper.append('<nav-item class="ctxmenu--divider"></nav-item>');
+				} else {
+					var menu = $("<nav-item class='ctxmenu--item'></nav-item>");
 
-				menu.html(item.menu).click(function(e) {
-					item.action(that.elem, e);
-					that.hide();
-				}).appendTo(that.ctxwrapper);
+					menu.html(item.menu).click(function(e) {
+						item.action(that.elem, e);
+						that.hide();
+					}).appendTo(that.ctxwrapper);
+				}
+				
 			});
 
 			that.ctxwrapper.appendTo('body');
@@ -44,11 +49,12 @@ if (typeof jQuery === 'undefined') { throw new Error('CTXMenu: This plugin requi
 			var _anchored = this.options.anchor, _anchorPos = this.options.anchorPos,
 				topPos = _anchored ? this.elem.offset().top + this.elem.outerHeight(true) : e.clientY + 10;
 
-			this.ctxwrapper.css({ top: topPos, 'transform-origin' : 'top ' + _anchorPos })
-				.css(_anchorPos, 
+			this.ctxwrapper.css({ top: topPos, 'transform-origin' : 'top ' + (_anchored ? _anchorPos : 'left') })
+				.css(_anchored ? _anchorPos : 'left', 
 					_anchored ? 
 						(_anchorPos === 'left' ? this.elem.offset().left 
 							: $(window).width() - (this.elem.offset().left + this.elem.outerWidth(true)))
+						// : _anchorPos == 'left' ? e.clientX + 10 : $(window).width() - e.clientX
 						: e.clientX + 10
 				).addClass('ctxmenu--open');
 		},
