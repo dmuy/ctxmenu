@@ -13,15 +13,23 @@ Initialize with default settings using an array of menu objects.
 ``` javascript
 $(document).ready(function(){
   $('#elementId').ctxmenu([{
-    menu: 'Cut', action: function(e) { // do something }
+    menu: 'Cut', action: function(e) {
+      // do something 
+    }
   }, {
-    menu: 'Copy', action: function (e) { // do something }
+    menu: 'Copy', action: function (e) {
+      // do something 
+    }
   }, {
-    menu: 'Paste', action: function(e) { // do something }
+    menu: 'Paste', action: function(e) {
+      // do something
+    }
   }, 
   { divider: true }, // Adds a divider
   {
-    menu: 'Select All', action: function (e) { // do something }
+    menu: 'Select All', action: function (e) {
+      // do something
+    }
   }]);
 });
 ```
@@ -34,18 +42,26 @@ Initialize with additional settings
 $(document).ready(function(){
   $('#elementId').ctxmenu({ theme: 'dark', trigger: 'click' }, [{
     menu: '<i class="material-icons">content_cut</i>Cut', 
-    action: function(e) { // do something }
+    action: function(e) { 
+      // do something 
+    }
   }, {
     menu: '<i class="material-icons">content_copy</i>Copy',
-    action: function (e) { // do something }
+    action: function (e) { 
+      // do something 
+    }
   }, {
     menu: '<i class="material-icons">content_paste</i>Paste', 
-    action: function(e) { // do something }
+    action: function(e) { 
+      // do something 
+    }
   }, 
   { divider: true }, // Adds a divider
   {
     menu: '<i class="material-icons">select_all</i> Select All',
-    action: function (e) { // do something }
+    action: function (e) { 
+      // do something 
+    }
   }]);
 });
 ```
@@ -53,13 +69,51 @@ Sample:
 
 ![alt text](https://lh3.googleusercontent.com/9-G8UIpVNZdW3s4vDRfK55MIIeKb_QEKfXzmF2wIYjccstOjsSmZq0kZCGAd57qzAP4Gn1jQgmiqPvKyNExPymH5uConX_fa5uKhyeTwcKzWpiQUYkgWQt209NAgRJZof5oATm-aDuPYP6rPc22zZEly1NFTICzC3QziPndip7yggaU6KkxBRR3mzbN2y6rKIU6UfCkMgZo4jK4c74GanMqZcBosn58yP4BiQlg3MjNumB642V42IBe3NByc0RBJAXvmEfKPK7GQa6i6fnJO1faKejFI5pspMkGd8Nuk0IfIXX45Qba3ll9-O5mhYdzqcHvQ7TEVQlYQ8Yu6GPtBxeLCnZ0-IuYo2EUnbxflKTKFUWJelL_ieVF5c23xbUvvDyYppcTpI-ROEh5V-9DEdLF8vlp160ikdiCoMJuJC9ibue4Xn6tmyRNJVIdO1rX_6fFgXxlvADr91AxAemWnlTvBBGG-dIyvZm-mQZJ_S5s49l1ToiXYkWBr2PCo1R2FmbV40jua-4ExO5PE1ncbCrmWs6vz-ZEZhi5BLVXKxmr8Em23zDmSygVCDTLpDhQDkaJqcPznWLYndjeQYjTWD8DPowA2EBhkV3f_YMs=w174-h252-no "dark ctxmenu with icons")
 
+### Sub menu
+You can add sub menu by using the `subs` property of the menu object. You can still specify the `action` property even if the menu item has subs, or you can ditch it (as shown below).
+
+*Note: Sub menu will show open hover of the parent menu.*
+``` javascript
+$(document).ready(function(){
+  $('#elementId').ctxmenu([{
+    menu: 'Open', action: function (e) { 
+      // do something 
+    }
+  }, {
+    menu: 'Save', action: function(e) { 
+      // do something 
+    }
+  }, 
+  { divider: true }, // Adds a divider
+  {
+    menu: 'Options', subs: [{
+      menu: 'Option 1', action: function(el, evt){ 
+        // do something 
+      }
+    },{
+      menu: 'Option 2', action: function(el, evt){ 
+        // do something 
+      }
+    },{
+      menu: 'Option 3', action: function(el, evt){ 
+        // do something 
+      }
+    }]
+  }]);
+});
+```
+Sample: 
+
+![alt text](https://lh3.googleusercontent.com/XfCg0Ede1S-2iAdv4bo63PR6JebmGtJLC4E6sbikX5qil-jPFDkTygPLh7O7dJ7mQ8hASMtRnU5wV4QFmCqduUt4-DB-pS5S30tpxffwYpPK03r1fr4kgog1KR4Asgl4IL3vamYCVTVLNGoFN2QSysk7h-Kr1-Mqk76qbyqLIIzGrBrYMzkZvStu4cqwXzOY-_5jJ2vAEioHWuSvsU4Etw18u5zMECbg-dBjCFC2xrOoodYS4xxY0J3AuYJpp7qrot_cMpnJdoVxR_vVgDfxI_uBZDgXrJOl--iLp_5Byc31a9SbDaoe2wezR0p_Sc0l7joV6WnY4VlRc02njTe6DcIkloufulNrAFC1T6VeUU1oTOZzGraFf9w7whTKDssXdIA4MoqyIiFnBGJV72u7zNE2OLb3sbjLdziXWYH2et4ugg-YGgxfk1o5G6gD9fdZvtsydNZtVUy8J5bI0Dg6giVWiokSrvzCyb-awdserK5krtxvjmZT2EJRXN9yEjvDEJ7DKw13Oe0rrZrUlXNtjvRbXSBXdZnJAI42Mm7Mf0ZvtnEg3l8RsWEJT8ZdFtVz0AGRTkSk4Krm7-S3M1FlslEuKqEEzj6vI_lz9kM=w318-h298-no "ctxmenu with subs")
+
 
 ## Menu object
 ``` javascript
 {
-  menu: 'Menu 1', // Menu label; accepts plain text or html
-  action: function(el, evt){}, // Performed when clicking then menu item: el (element), evt (click event)
-  divider: true  // Use this only when you want to add a divider
+  menu: 'Menu 1',               // Menu label; accepts plain text or html
+  action: function(el, evt){},  // Performed when clicking then menu item: el (element), evt (click event)
+  subs: [],                     // Array of menu objects which serves as sub menu
+  divider: true                 // Use this only when you want to add a divider
 }
 ```
 ## Configurations
