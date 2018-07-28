@@ -63,13 +63,13 @@ if (typeof jQuery === 'undefined') { throw new Error('CTXMenu: This plugin requi
 
 		show : function(e) {
 			var _anchored = this.options.anchor, _anchorPos = this.options.anchorPos,
-				topPos = _anchored ? this.elem.offset().top + this.elem.outerHeight(true) : e.clientY + 10;
+				topPos = _anchored ? this.elem.offset().top + this.elem.outerHeight() : e.clientY + 10;
 
 			this.ctxwrapper.css({ top: topPos, 'transform-origin' : 'top ' + (_anchored ? _anchorPos : 'left') })
 				.css(_anchored ? _anchorPos : 'left', 
 					_anchored ? 
 						(_anchorPos === 'left' ? this.elem.offset().left 
-							: $(window).width() - (this.elem.offset().left + this.elem.outerWidth(true)))
+							: $(window).width() - (this.elem.offset().left + this.elem.outerWidth()))
 						: e.clientX + 10
 				).addClass('ctxmenu--open');
 		},

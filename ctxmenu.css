@@ -1,5 +1,6 @@
 .ctxmenu, .ctxmenu--sub {
     position: absolute;
+    top: 0;
     background-color: #fff;
     padding: 8px 0;
     visibility: hidden;
