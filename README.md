@@ -1,6 +1,9 @@
 # ctxmenu
 Material inspired context menu plugin
 
+**[DEMO](https://dmuy.github.io/ctxmenu/)**
+
+
 ## How to use
 Make sure you include the jQuery library first. Include `ctxmenu.min.css` and `ctxmenu.min.js` in your html markup:
 ``` html
