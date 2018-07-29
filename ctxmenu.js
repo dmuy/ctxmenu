@@ -15,8 +15,6 @@ if (typeof jQuery === 'undefined') { throw new Error('CTXMenu: This plugin requi
 		this.options = options;
 		this.menus = menulist;
 		this.ctxwrapper = $("<nav class='ctxmenu'></nav>");
-
-		this.ctxwrapper.bind('contextmenu', function () { return false; });
 	}, ctxMenuItem = { menu: '', action: null, divider: false, disable: false };
 
 	CTXMenu.prototype = {
@@ -29,7 +27,7 @@ if (typeof jQuery === 'undefined') { throw new Error('CTXMenu: This plugin requi
             if (that.options.compact) that.ctxwrapper.addClass('ctxmenu--compact');
             if (that.options.theme === 'dark') that.ctxwrapper.addClass('ctxmenu--dark');
 
-			that.ctxwrapper.empty().appendTo('body');
+			that.ctxwrapper.empty().appendTo('body').bind('contextmenu', function (e) { return false; });
 
             addMenuItems(list, that.ctxwrapper, false, callback);
 
