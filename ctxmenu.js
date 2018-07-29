@@ -11,108 +11,121 @@ if (typeof jQuery === 'undefined') { throw new Error('CTXMenu: This plugin requi
  
 +function ($) {
 	var CTXMenu = function(elem, options, menulist) {
-			this.elem = $(elem);
-			this.options = options;
-			this.create(menulist);
-		}
+		this.elem = $(elem);
+		this.options = options;
+		this.menus = menulist;
+		this.ctxwrapper = $("<nav class='ctxmenu'></nav>");
+
+		this.ctxwrapper.bind('contextmenu', function () { return false; });
+	}, ctxMenuItem = { menu: '', action: null, divider: false, disable: false };
 
 	CTXMenu.prototype = {
 
 		constructor : CTXMenu,
 
-		create : function(list) {
-			var that = this;
-
-			that.ctxwrapper = $("<nav class='ctxmenu'></nav>");
+		create : function(callback) {
+			var that = this, list = that.menus;
 
             if (that.options.compact) that.ctxwrapper.addClass('ctxmenu--compact');
             if (that.options.theme === 'dark') that.ctxwrapper.addClass('ctxmenu--dark');
 
-            addMenuItems(list, that.ctxwrapper, false);
+			that.ctxwrapper.empty().appendTo('body');
 
-			that.ctxwrapper.appendTo('body');
+            addMenuItems(list, that.ctxwrapper, false, callback);
 
-			function addMenuItems(items, elem, isSub) {
+			function addMenuItems(items, elem, isSub, cb) {
 				var menuWrapper = isSub ? $('<nav class="ctxmenu--sub"></nav>') : elem;
 
-				$.each(items, function (idx, item) {
+				$.each(items, function (idx, menu) {
+					var item = $.extend({}, ctxMenuItem, menu);
+
 					if (item.divider) {
 						menuWrapper.append('<nav-item class="ctxmenu--divider"></nav-item>');
 					} else {
-						var menu = $("<nav-item class='ctxmenu--item'></nav-item>");
+						var menuElem = $("<nav-item class='ctxmenu--item'></nav-item>"),
+							_disabled = typeof item.disable === 'function' ? item.disable() : item.disable;
 
-						if (item.action)
-							menu.click(function(e) {
+						if (item.action && !_disabled)
+							menuElem.click(function(e) {
 								item.action(that.elem, e);
 								that.hide();
 							});
 
-						menu.html(item.menu).appendTo(menuWrapper);
+						if (_disabled) menuElem.addClass('ctxmenu--disabled');
+
+						menuElem.html(item.menu).appendTo(menuWrapper);
 
 						if (item.subs && item.subs.length > 0) {
-							menu.addClass('ctxmenu--hassubs');
+							menuElem.addClass('ctxmenu--hassubs');
 
-							addMenuItems(item.subs, menu, true);
+							addMenuItems(item.subs, menuElem, true, cb);
 						}
 					}
 				});
 
 				if (isSub) menuWrapper.appendTo(elem);
+				if (cb) setTimeout(cb, 0);
 			}
 		},
 
 		show : function(e) {
-			var _anchored = this.options.anchor, _anchorPos = this.options.anchorPos,
-				topPos = _anchored ? this.elem.offset().top + this.elem.outerHeight() : e.clientY + 10;
+			var that = this, _anchored = that.options.anchor, _anchorPos = that.options.anchorPos,
+				topPos = _anchored ? that.elem.offset().top + that.elem.outerHeight() : e.clientY + 10;
 
-			this.ctxwrapper.css({ top: topPos, 'transform-origin' : 'top ' + (_anchored ? _anchorPos : 'left') })
-				.css(_anchored ? _anchorPos : 'left', 
-					_anchored ? 
-						(_anchorPos === 'left' ? this.elem.offset().left 
-							: $(window).width() - (this.elem.offset().left + this.elem.outerWidth()))
-						: e.clientX + 10
-				).addClass('ctxmenu--open');
+			that.create(function () {
+				that.ctxwrapper.css({ top: topPos, 'transform-origin' : 'top ' + (_anchored ? _anchorPos : 'left') })
+					.css(_anchored ? _anchorPos : 'left', 
+						_anchored ? 
+							(_anchorPos === 'left' ? that.elem.offset().left 
+								: $(window).width() - (that.elem.offset().left + that.elem.outerWidth()))
+							: e.clientX + 10
+					).addClass('ctxmenu--open');
+			});
 		},
 
 		hide : function() {
-			this.ctxwrapper.removeClass('ctxmenu--open');
+			var that = this;
+
+			that.ctxwrapper.removeClass('ctxmenu--open');
+			setTimeout(function () { that.ctxwrapper.remove(); }, 0);
         },
 
-        destroy: function () {
-            this.elem.removeData('ctxmenu_data');
-            this.ctxwrapper.remove();
-        }
+        destroy: function () { this.elem.removeData('ctxmenu_data'); }
 	}
 
-	$.fn.ctxmenu = function(opts, list) {
+	/*
+	* _ctxArgs[0] - menu list
+	* _ctxArgs[1] - configurations
+	*/
+	$.fn.ctxmenu = function() {
+		var _ctxArgs = arguments;
+
 		return $(this).each(function(index, elem) {
-			var that = this;
- 			var $this = $(that),
- 				data = $(that).data('ctxmenu_data'),
- 				options = $.extend({}, $.fn.ctxmenu.defaults, $this.data(), !Array.isArray(opts) && opts);
+			var that = this, $this = $(that), data = $(that).data('ctxmenu_data'), list = _ctxArgs[0], opts = _ctxArgs[1],
+ 				options = $.extend({}, $.fn.ctxmenu.defaults, !Array.isArray(opts) && opts);
 
  			if(!data) {
  				$this.data('ctxmenu_data', (data = new CTXMenu(this, options, Array.isArray(opts) ? opts : list)));
 
  				switch(options.trigger){
  					case 'right-click':
- 						$this.bind('contextmenu', function (e) { 
-		 					data['show'](e);
+ 						$this.bind('contextmenu', function (e) {
+ 							data['show'](e);
 		 					return false; 
 		 				});
  					break;
  					case 'click':
  						$this.click(function(e) {
  							e.preventDefault();
-
  							data['show'](e);
+ 							return false;
  						});
  					break
  				}
 
 				$(document).bind("mousedown.contextmenu touchstart.contextmenu", function (e) {
 	                // Close menu when clicked outside menu
-	                if (!$(e.target).closest('.ctxmenu').length) { data['hide'](); }
+	                if (!$(e.target).not($this).closest('.ctxmenu').length) data['hide']();
 	            });
  			}
  			if(typeof opts === 'string') data[opts]();

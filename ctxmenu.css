@@ -45,9 +45,7 @@
     /*-moz-transition: background-color .10s linear;*/
     transition: background-color .10s linear;
 }
-    .ctxmenu .ctxmenu--item.ctxmenu--hassubs {
-        padding: 0 40px 0 16px;
-    }
+    .ctxmenu .ctxmenu--item.ctxmenu--hassubs { padding: 0 40px 0 16px; }
     .ctxmenu .ctxmenu--item.ctxmenu--hassubs::after {
         content: '';
         display: block;
@@ -57,6 +55,8 @@
         border-left-color: #6E6E6E;
         border-right: 0;
     }
+    .ctxmenu .ctxmenu--disabled.ctxmenu--hassubs::after { border-left-color: #BBBBBB; }
+    .ctxmenu--dark .ctxmenu--disabled.ctxmenu--hassubs::after { border-left-color: #666666; }
     .ctxmenu--compact .ctxmenu--item {
         font-size: 14px;
         line-height: 32px;
@@ -70,6 +70,12 @@
 	.ctxmenu .ctxmenu--item:active { background-color: rgba(0,0,0,.15); }
 	.ctxmenu--dark .ctxmenu--item:hover, .ctxmenu--dark .ctxmenu--item:focus { background-color: rgba(255,255,255,.06); }
 	.ctxmenu--dark .ctxmenu--item:active { background-color: rgba(255,255,255,.15); }
+    .ctxmenu .ctxmenu--disabled { color: #BBBBBB !important; }
+    .ctxmenu--dark .ctxmenu--disabled { color: #666666 !important; }
+    .ctxmenu .ctxmenu--disabled:hover, .ctxmenu .ctxmenu--disabled:focus, .ctxmenu .ctxmenu--disabled:active {
+        background-color: transparent;
+        cursor: default;
+    }
 	.ctxmenu .ctxmenu--divider {
         display: block;
         margin: 6px 0;
@@ -82,6 +88,8 @@
         width: auto;
         height: auto;
 	}
+    .ctxmenu .ctxmenu--disabled .material-icons { color: #BBBBBB !important; }
+    .ctxmenu--dark .ctxmenu--disabled .material-icons { color: #666666 !important; }
     .ctxmenu--compact .ctxmenu--item .material-icons {
         padding: 0 12px 0 0; 
         font-size: 18px;
@@ -93,7 +101,7 @@
         transform-origin: top left;
         z-index: 1;
     }
-    .ctxmenu .ctxmenu--item:hover > .ctxmenu--sub {
+    .ctxmenu .ctxmenu--item:not(.ctxmenu--disabled):hover > .ctxmenu--sub {
         visibility: visible;
         opacity: 1;
         transform: scale(1);
