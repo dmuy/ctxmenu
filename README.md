@@ -43,7 +43,8 @@ Sample:
 Initialize with additional settings
 ``` javascript
 $(document).ready(function(){
-  $('#elementId').ctxmenu({ theme: 'dark', trigger: 'click' }, [{
+  // first parameter is an array of menu objects, second is the configuration object
+  $('#elementId').ctxmenu([{
     menu: '<i class="material-icons">content_cut</i>Cut', 
     action: function(e) { 
       // do something 
@@ -65,7 +66,7 @@ $(document).ready(function(){
     action: function (e) { 
       // do something 
     }
-  }]);
+  }], { theme: 'dark', trigger: 'click' });
 });
 ```
 Sample:
@@ -117,6 +118,7 @@ Sample:
   action: function(el, evt){},  // Performed when clicking then menu item: el (element), evt (click event)
   subs: [],                     // Array of menu objects which serves as sub menu
   divider: true                 // Use this only when you want to add a divider
+  disable: false                // Determines if menu item is disabled: default value is false, you can also use a function which returns a boolean value
 }
 ```
 ## Configurations
