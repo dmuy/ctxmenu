@@ -50,8 +50,11 @@ if (typeof jQuery === 'undefined') { throw new Error('CTXMenu: This plugin requi
 							});
 
 						if (_disabled) menuElem.addClass('ctxmenu--disabled');
+						if (item.icon) menuElem.append(item.icon);
 
-						menuElem.html(item.menu).appendTo(menuWrapper);
+						$('<span>').addClass('ctxmenu--text').text(item.menu).appendTo(menuElem);
+						
+						menuElem.appendTo(menuWrapper);
 
 						if (item.subs && item.subs.length > 0) {
 							menuElem.addClass('ctxmenu--hassubs');
