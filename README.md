@@ -11,6 +11,30 @@ Make sure you include the jQuery library first. Include `ctxmenu.min.css` and `c
 <script type="text/javascript" src="ctxmenu.min.js"></script>
 ```
 
+### Menu object
+``` javascript
+{
+  icon: '<icon markup here>',   // Menu icon markup - material icons already has styling; you need to add your own styling for other icon fonts
+  menu: 'Menu 1',               // Menu label; accepts plain text or html
+  action: function(el, evt){},  // Performed when clicking then menu item: el (element), evt (click event)
+  subs: [],                     // Array of menu objects which serves as sub menu
+  divider: true                 // Use this only when you want to add a divider
+  disable: false                // Determines if menu item is disabled: default value is false, you can also use a function which returns a boolean value
+}
+```
+
+### Configurations
+Below is the default configuration of ctxmenu.
+``` javascript
+{
+  theme: 'light',			// Color theme of the menu: light || dark
+  compact: false,			// Determines if menu item spacing is compact
+  trigger: 'right-click',	// Click type to show the menu: click || right-click
+  anchor: false,			// Determines if menu is anchored to the element
+  anchorPos: 'right'		// Determines the positioning of the menu (if anchored to element): left || right
+}
+```
+
 ### Initialize 
 Initialize with default settings using an array of menu objects.
 ``` javascript
@@ -45,24 +69,28 @@ Initialize with additional settings
 $(document).ready(function(){
   // first parameter is an array of menu objects, second is the configuration object
   $('#elementId').ctxmenu([{
-    menu: '<i class="material-icons">content_cut</i>Cut', 
+    icon: '<i class="material-icons">content_cut</i>',
+    menu: 'Cut', 
     action: function(e) { 
       // do something 
     }
   }, {
-    menu: '<i class="material-icons">content_copy</i>Copy',
+    icon: '<i class="material-icons">content_copy</i>',
+    menu: 'Copy',
     action: function (e) { 
       // do something 
     }
   }, {
-    menu: '<i class="material-icons">content_paste</i>Paste', 
+    icon: '<i class="material-icons">content_paste</i>',
+    menu: 'Paste', 
     action: function(e) { 
       // do something 
     }
   }, 
   { divider: true }, // Adds a divider
   {
-    menu: '<i class="material-icons">select_all</i> Select All',
+    icon: '<i class="material-icons">select_all</i>',
+    menu: 'Select All',
     action: function (e) { 
       // do something 
     }
@@ -109,26 +137,3 @@ $(document).ready(function(){
 Sample: 
 
 ![alt text](https://lh3.googleusercontent.com/XfCg0Ede1S-2iAdv4bo63PR6JebmGtJLC4E6sbikX5qil-jPFDkTygPLh7O7dJ7mQ8hASMtRnU5wV4QFmCqduUt4-DB-pS5S30tpxffwYpPK03r1fr4kgog1KR4Asgl4IL3vamYCVTVLNGoFN2QSysk7h-Kr1-Mqk76qbyqLIIzGrBrYMzkZvStu4cqwXzOY-_5jJ2vAEioHWuSvsU4Etw18u5zMECbg-dBjCFC2xrOoodYS4xxY0J3AuYJpp7qrot_cMpnJdoVxR_vVgDfxI_uBZDgXrJOl--iLp_5Byc31a9SbDaoe2wezR0p_Sc0l7joV6WnY4VlRc02njTe6DcIkloufulNrAFC1T6VeUU1oTOZzGraFf9w7whTKDssXdIA4MoqyIiFnBGJV72u7zNE2OLb3sbjLdziXWYH2et4ugg-YGgxfk1o5G6gD9fdZvtsydNZtVUy8J5bI0Dg6giVWiokSrvzCyb-awdserK5krtxvjmZT2EJRXN9yEjvDEJ7DKw13Oe0rrZrUlXNtjvRbXSBXdZnJAI42Mm7Mf0ZvtnEg3l8RsWEJT8ZdFtVz0AGRTkSk4Krm7-S3M1FlslEuKqEEzj6vI_lz9kM=w318-h298-no "ctxmenu with subs")
-
-
-## Menu object
-``` javascript
-{
-  menu: 'Menu 1',               // Menu label; accepts plain text or html
-  action: function(el, evt){},  // Performed when clicking then menu item: el (element), evt (click event)
-  subs: [],                     // Array of menu objects which serves as sub menu
-  divider: true                 // Use this only when you want to add a divider
-  disable: false                // Determines if menu item is disabled: default value is false, you can also use a function which returns a boolean value
-}
-```
-## Configurations
-Below is the default configuration of ctxmenu.
-``` javascript
-{
-  theme: 'light',			// Color theme of the menu: light || dark
-  compact: false,			// Determines if menu item spacing is compact
-  trigger: 'right-click',	// Click type to show the menu: click || right-click
-  anchor: false,			// Determines if menu is anchored to the element
-  anchorPos: 'right'		// Determines the positioning of the menu (if anchored to element): left || right
-}
-```
