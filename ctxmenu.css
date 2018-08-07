@@ -3,14 +3,16 @@
     top: 0;
     background-color: #fff;
     padding: 8px 0;
-    min-width: 112px;
-    max-width: 280px;
     visibility: hidden;
     opacity: 0;
+    /*-moz-border-radius: 4px;*/
     border-radius: 4px;
+    /*-moz-transform: scale(0.8);*/
     transform: scale(0.8);
+    /*-moz-transition: -moz-transform 0.12s cubic-bezier(0.0, 0.0, 0.2, 1), opacity 0.03s linear;*/
     transition: transform 0.12s cubic-bezier(0.0, 0.0, 0.2, 1), opacity 0.03s linear;
-    box-shadow: 0 5px 5px -3px rgba(0,0,0,.2), 0 8px 10px 1px rgba(0,0,0,.14), 0 3px 14px 2px rgba(0,0,0,.12);
+    /*-moz-box-shadow: 0 2px 2px 0 rgba(0,0,0,0.14), 0 1px 5px 0 rgba(0,0,0,0.12), 0 3px 1px -2px rgba(0,0,0,0.2);*/
+    box-shadow: 0 2px 2px 0 rgba(0,0,0,0.14), 0 1px 5px 0 rgba(0,0,0,0.12), 0 3px 1px -2px rgba(0,0,0,0.2);
     will-change: visibility, opacity, transform;
 }
 	.ctxmenu--dark {
@@ -18,11 +20,11 @@
 		color: #fff;
 	}
 	.ctxmenu--open {
+		/*-moz-transform: scale(1);*/
 		transform: scale(1);
 		visibility: visible;
 		opacity: 1;
 	}
-	.ctxmenu--compact, .ctxmenu--compact .ctxmenu--sub { padding: 4px 0; }
 
 .ctxmenu .ctxmenu--item {
     position: relative;
@@ -30,16 +32,17 @@
     font-size: 16px;
     font-weight: 400;
     color: #444444;
-    display: block;
-    overflow: hidden;
-    text-overflow: ellipsis;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
     cursor: pointer;
     white-space: nowrap;
     padding: 0 16px;
     line-height: 48px;
+    min-width: 100px;
     user-select: none;
-    -ms-user-select: none;
     background-color: inherit;
+    /*-moz-transition: background-color .10s linear;*/
     transition: background-color .10s linear;
 }
     .ctxmenu .ctxmenu--item.ctxmenu--hassubs { padding: 0 40px 0 16px; }
@@ -81,15 +84,14 @@
     .ctxmenu--dark .ctxmenu--divider { border-bottom-color: rgba(255,255,255,.12); }
 	.ctxmenu .ctxmenu--item .material-icons {
 		color: #6E6E6E;
-		padding: 12px 16px 12px 0;
+		padding: 0 20px 0 0;
         width: auto;
         height: auto;
-        float: left;
 	}
     .ctxmenu .ctxmenu--disabled .material-icons { color: #BBBBBB !important; }
     .ctxmenu--dark .ctxmenu--disabled .material-icons { color: #666666 !important; }
     .ctxmenu--compact .ctxmenu--item .material-icons {
-        padding: 7px 10px 7px 0; 
+        padding: 0 12px 0 0; 
         font-size: 18px;
     }
 	.ctxmenu--dark .ctxmenu--item .material-icons { color: #919191; }
