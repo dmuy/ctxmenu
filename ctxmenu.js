@@ -128,6 +128,8 @@ if (typeof jQuery === 'undefined') { throw new Error('CTXMenu: This plugin requi
 	                // Close menu when clicked outside menu
 	                if (!$(e.target).not($this).closest('.ctxmenu').length) data['hide']();
 	            });
+
+	            $(window).bind('blur', function () { data['hide']() });
  			}
  			if(typeof opts === 'string') data[opts]();
 		});
