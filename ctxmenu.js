@@ -44,7 +44,7 @@ if (typeof jQuery === 'undefined') { throw new Error('CTXMenu: This plugin requi
 							_disabled = typeof item.disable === 'function' ? item.disable() : item.disable;
 
 						if (item.action && !_disabled)
-							menuElem.click(function(e) {
+							menuElem.on('click touchstart', function(e) {
 								item.action(that.elem, e);
 								that.hide();
 							});
@@ -70,8 +70,8 @@ if (typeof jQuery === 'undefined') { throw new Error('CTXMenu: This plugin requi
 		},
 
 		show : function(e) {
-			var that = this, _anchored = that.options.anchor, _anchorPos = that.options.anchorPos,
-				topPos = _anchored ? that.elem.offset().top + that.elem.outerHeight() : e.clientY + 10;
+			var that = this, _anchored = that.options.anchor, _anchorPos = that.options.anchorPos, _isTouch = e.type === 'touchstart',
+				topPos = _anchored ? that.elem.offset().top + that.elem.outerHeight() : (_isTouch ? e.originalEvent.touches[0].pageY : e.clientY) + 10;
 
 			that.create(function () {
 				that.ctxwrapper.css({ top: topPos, 'transform-origin' : 'top ' + (_anchored ? _anchorPos : 'left') })
@@ -79,7 +79,7 @@ if (typeof jQuery === 'undefined') { throw new Error('CTXMenu: This plugin requi
 						_anchored ? 
 							(_anchorPos === 'left' ? that.elem.offset().left 
 								: $(window).width() - (that.elem.offset().left + that.elem.outerWidth()))
-							: e.clientX + 10
+							: (_isTouch ? e.originalEvent.touches[0].pageX : e.clientX) + 10
 					).addClass('ctxmenu--open');
 			});
 		},
@@ -116,9 +116,10 @@ if (typeof jQuery === 'undefined') { throw new Error('CTXMenu: This plugin requi
 		 				});
  					break;
  					case 'click':
- 						$this.click(function(e) {
- 							e.preventDefault();
+ 						$this.on('click touchstart', function(e) {
  							data['show'](e);
+ 							$('.ctxmenu').not(data.ctxwrapper).removeClass('ctxmenu--open').remove();
+ 							e.preventDefault();
  							return false;
  						});
  					break
@@ -131,7 +132,7 @@ if (typeof jQuery === 'undefined') { throw new Error('CTXMenu: This plugin requi
 
 	            $(window).bind('blur', function () { data['hide']() });
  			}
- 			if(typeof opts === 'string') data[opts]();
+ 			if(typeof _ctxArgs[0] === 'string') data[_ctxArgs[0]]();
 		});
 	}
 
