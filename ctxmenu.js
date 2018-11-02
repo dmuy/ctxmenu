@@ -14,7 +14,7 @@ if (typeof jQuery === 'undefined') { throw new Error('CTXMenu: This plugin requi
 		this.elem = $(elem);
 		this.options = options;
 		this.menus = menulist;
-		this.ctxwrapper = $("<nav class='ctxmenu'></nav>");
+		this.ctxwrapper = $(document.createElement(options.menuElem));
 	}, ctxMenuItem = { menu: '', action: null, divider: false, disable: false };
 
 	CTXMenu.prototype = {
@@ -24,24 +24,31 @@ if (typeof jQuery === 'undefined') { throw new Error('CTXMenu: This plugin requi
 		create : function(callback) {
 			var that = this, list = that.menus;
 
-            if (that.options.compact) that.ctxwrapper.addClass('ctxmenu--compact');
-            if (that.options.theme === 'dark') that.ctxwrapper.addClass('ctxmenu--dark');
+			that.ctxwrapper.addClass('ctxmenu');
+
+            if (that.options.compact) that.ctxwrapper.addClass('ctxmenu-compact');
+            if (that.options.theme === 'dark') that.ctxwrapper.addClass('ctxmenu-dark');
 
 			that.ctxwrapper.empty().appendTo('body').bind('contextmenu', function (e) { return false; });
 
             addMenuItems(list, that.ctxwrapper, false, callback);
 
 			function addMenuItems(items, elem, isSub, cb) {
-				var menuWrapper = isSub ? $('<nav class="ctxmenu--sub"></nav>') : elem;
+				var menuWrapper = isSub ? $(document.createElement(that.options.menuElem)) : elem;
+
+				if (isSub) menuWrapper.addClass('ctxmenu-sub');
 
 				$.each(items, function (idx, menu) {
 					var item = $.extend({}, ctxMenuItem, menu);
 
 					if (item.divider) {
-						menuWrapper.append('<nav-item class="ctxmenu--divider"></nav-item>');
+						$(document.createElement(that.options.itemElem))
+							.addClass('ctxmenu-divider').appendTo(menuWrapper);
 					} else {
-						var menuElem = $("<nav-item class='ctxmenu--item'></nav-item>"),
+						var menuElem = $(document.createElement(that.options.itemElem)),
 							_disabled = typeof item.disable === 'function' ? item.disable() : item.disable;
+
+						menuElem.addClass('ctxmenu-item');
 
 						if (item.action && !_disabled)
 							menuElem.on('click touchstart', function(e) {
@@ -52,7 +59,8 @@ if (typeof jQuery === 'undefined') { throw new Error('CTXMenu: This plugin requi
 						if (_disabled) menuElem.addClass('ctxmenu--disabled');
 						if (item.icon) menuElem.append(item.icon);
 
-						$('<span>').addClass('ctxmenu--text').text(item.menu).appendTo(menuElem);
+						$(document.createElement('span'))
+							.addClass('ctxmenu-text').text(item.menu).appendTo(menuElem);
 						
 						menuElem.appendTo(menuWrapper);
 
@@ -116,11 +124,15 @@ if (typeof jQuery === 'undefined') { throw new Error('CTXMenu: This plugin requi
 		 				});
  					break;
  					case 'click':
- 						$this.on('click touchstart', function(e) {
- 							data['show'](e);
- 							$('.ctxmenu').not(data.ctxwrapper).removeClass('ctxmenu--open').remove();
- 							e.preventDefault();
- 							return false;
+ 						var clickTO = null;
+
+ 						$this.on('touchmove', function () {
+ 							clearTimeout(clickTO);
+ 						}).on('click touchstart', function(e) {
+ 							clickTO = setTimeout(function () {
+	 							data['show'](e);
+	 							$('.ctxmenu').not(data.ctxwrapper).removeClass('ctxmenu--open').remove(); 								
+ 							}, e.type === 'touchstart' ? 150 : 0);
  						});
  					break
  				}
@@ -141,6 +153,8 @@ if (typeof jQuery === 'undefined') { throw new Error('CTXMenu: This plugin requi
 		compact: false,			// Determines if menu item spacing is compact
 		trigger: 'right-click',	// Click type to show the menu: click || right-click
 		anchor: false,			// Determines if menu is anchored to the element
-        anchorPos: 'right'		// Determines the positioning of the menu (if anchored to element): left || right
+        anchorPos: 'right',		// Determines the positioning of the menu (if anchored to element): left || right
+        menuElem: 'nav',		// Determines the wrapper DOM element to use
+        itemElem: 'nav-item'	// Determines the menu item DOM element to use
 	};
 }(jQuery);
