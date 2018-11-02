@@ -27,11 +27,13 @@ Make sure you include the jQuery library first. Include `ctxmenu.min.css` and `c
 Below is the default configuration of ctxmenu.
 ``` javascript
 {
-  theme: 'light',			// Color theme of the menu: light || dark
-  compact: false,			// Determines if menu item spacing is compact
-  trigger: 'right-click',	// Click type to show the menu: click || right-click
-  anchor: false,			// Determines if menu is anchored to the element
-  anchorPos: 'right'		// Determines the positioning of the menu (if anchored to element): left || right
+  theme: 'light',   // Color theme of the menu: light || dark
+  compact: false,   // Determines if menu item spacing is compact
+  trigger: 'right-click', // Click type to show the menu: click || right-click
+  anchor: false,    // Determines if menu is anchored to the element
+  anchorPos: 'right',  // Determines the positioning of the menu (if anchored to element): left || right
+  menuElem: 'nav',  // Determines the wrapper DOM element to use
+  itemElem: 'nav-item'  // Determines the menu item DOM element to use
 }
 ```
 
