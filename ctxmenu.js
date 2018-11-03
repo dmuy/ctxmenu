@@ -15,8 +15,6 @@ if (typeof jQuery === 'undefined') { throw new Error('CTXMenu: This plugin requi
 		this.options = options;
 		this.menus = menulist;
 		this.ctxwrapper = $(document.createElement(options.menuElem));
-
-		this.ctxwrapper.addClass('ctxmenu');
 	}, ctxMenuItem = { menu: '', action: null, divider: false, disable: false };
 
 	CTXMenu.prototype = {
@@ -26,7 +24,7 @@ if (typeof jQuery === 'undefined') { throw new Error('CTXMenu: This plugin requi
 		create : function(callback) {
 			var that = this, list = that.menus;
 
-			// that.ctxwrapper.addClass('ctxmenu');
+			that.ctxwrapper.addClass('ctxmenu');
 
             if (that.options.compact) that.ctxwrapper.addClass('ctxmenu-compact');
             if (that.options.theme === 'dark') that.ctxwrapper.addClass('ctxmenu-dark');
@@ -81,16 +79,19 @@ if (typeof jQuery === 'undefined') { throw new Error('CTXMenu: This plugin requi
 
 		show : function(e) {
 			var that = this, _anchored = that.options.anchor, _anchorPos = that.options.anchorPos, _isTouch = e.type === 'touchstart',
-				topPos = _anchored ? that.elem.offset().top + that.elem.outerHeight() : (_isTouch ? e.originalEvent.touches[0].pageY : e.clientY) + 10;
+				topPos = _anchored ? that.elem.offset().top + that.elem.outerHeight()
+					: ((_isTouch ? e.originalEvent.touches[0].pageY : e.clientY) + 10) + $('html, body').scrollTop();
 
 			that.create(function () {
-				that.ctxwrapper.css({ top: topPos, 'transform-origin' : 'top ' + (_anchored ? _anchorPos : 'left') })
+				that.ctxwrapper
 					.css(_anchored ? _anchorPos : 'left', 
 						_anchored ? 
 							(_anchorPos === 'left' ? that.elem.offset().left 
 								: $(window).width() - (that.elem.offset().left + that.elem.outerWidth()))
 							: (_isTouch ? e.originalEvent.touches[0].pageX : e.clientX) + 10)
-					.addClass('ctxmenu--open');
+					.css({ top: topPos, 'transform-origin' : 'top ' + (_anchored ? _anchorPos : 'left') });
+
+				setTimeout(function () { that.ctxwrapper.addClass('ctxmenu--open') }, 10);
 			});
 		},
 
@@ -126,15 +127,10 @@ if (typeof jQuery === 'undefined') { throw new Error('CTXMenu: This plugin requi
 		 				});
  					break;
  					case 'click':
- 						var clickTO = null;
-
- 						$this.on('touchmove', function () {
- 							clearTimeout(clickTO);
- 						}).on('click touchstart', function(e) {
+ 						$this.on('click', function(e) {
  							if (data.ctxwrapper.is(':visible')) return;
 
- 							clickTO = setTimeout(function () { data['show'](e) }, e.type === 'touchstart' ? 150 : 0);
- 							$('.ctxmenu').not(data.ctxwrapper).removeClass('ctxmenu--open').remove();
+ 							setTimeout(function () { data['show'](e) }, 40);
  						});
  					break
  				}
