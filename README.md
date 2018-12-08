@@ -14,13 +14,13 @@ Make sure you include the jQuery library first. Include `ctxmenu.min.css` and `c
 ### CDN
 Use the following if you don't want to host the `js` and `css` files:
 ```
-https://cdn.jsdelivr.net/gh/dmuy/ctxmenu@1.0/ctxmenu.css
-https://cdn.jsdelivr.net/gh/dmuy/ctxmenu@1.0/ctxmenu.js
+https://cdn.jsdelivr.net/gh/dmuy/ctxmenu/ctxmenu.css
+https://cdn.jsdelivr.net/gh/dmuy/ctxmenu/ctxmenu.js
 ```
 Minified version:
 ```
-https://cdn.jsdelivr.net/gh/dmuy/ctxmenu@1.0/ctxmenu.min.css
-https://cdn.jsdelivr.net/gh/dmuy/ctxmenu@1.0/ctxmenu.min.js
+https://cdn.jsdelivr.net/gh/dmuy/ctxmenu/ctxmenu.min.css
+https://cdn.jsdelivr.net/gh/dmuy/ctxmenu/ctxmenu.min.js
 ```
 
 [Learn more about the CDN](https://www.jsdelivr.com/features#gh)
