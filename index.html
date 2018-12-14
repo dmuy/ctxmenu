@@ -1,0 +1,93 @@
+---
+title: dmuy - ctxmenu
+layout: default
+---
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:400,500,700">
+<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.0/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/dmuy/ctxmenu/ctxmenu.min.css">
+<style type="text/css">
+    .btn { margin-bottom: 8px; }
+    .btn + .btn { margin-left: 8px;  }
+    #area1 {
+      display:inline-block;
+      width:200px;
+      height:100px;
+      padding:16px;
+      background-color:#555;
+      color:#fff;
+      margin-right:16px;
+    }
+</style>
+<h2>Demo</h2>
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <p>Context menu (right click on any part of the div)</p>
+            <div id="area1"><strong>Right click me!</strong></div>
+        </div>
+        <div class="col">
+            <p>Dropdown menu (anchored) with disabled item</p><button class="btn btn-primary" type="button" id="menu-trigger">Click me</button></div>
+    </div>
+    <div id="logger" style="font-style: italic;"></div>
+</div><br>
+
+{% capture docu_file %}{% include_relative README.md %}{% endcapture %}
+{{ docu_file | markdownify }}
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/dmuy/ctxmenu/ctxmenu.min.js"></script>
+<script type="text/javascript">
+	$(document).ready(function() {    
+        var logger = $('#logger');
+        $('#menu-trigger').ctxmenu([{
+            icon: '<i class="material-icons">content_cut</i>',
+            menu: 'Cut', 
+            action: function(e) {
+                logger.text('Cut clicked!');
+            }
+        }, {
+            icon: '<i class="material-icons">content_copy</i>',
+            menu: 'Copy',
+            action: function (e) {
+                logger.text('Copy clicked!');
+            }
+        }, {
+            icon: '<i class="material-icons">content_paste</i>',
+            menu: 'Paste', 
+            action: function(e) {
+                logger.text('Paste clicked!');
+            }, disable: true
+        }, { divider: true }, {
+            icon: '<i class="material-icons">select_all</i>',
+            menu: 'Select All',
+            action: function (e) {
+                logger.text('Select All clicked!');
+            }
+        }], { trigger: 'click', anchor: true, theme: 'dark' });
+
+        $('#area1').ctxmenu([{
+            menu: 'Open', 
+            action: function(e) {
+                logger.text('Open clicked!');
+            }
+        }, {
+            menu: 'Save', 
+            action: function(e) {
+                logger.text('Save clicked!');
+            }
+        }, { divider: true }, {
+            menu: 'Options',
+            subs: [{
+                menu: 'Option 1',
+                action: function (el, evt) { logger.text('Option 1 clicked.'); }
+            },{
+                menu: 'Option 2',
+                action: function (el, evt) { logger.text('Option 2 clicked.'); }
+            },{
+                menu: 'Option 3',
+                action: function (el, evt) { logger.text('Option 3 clicked.'); }
+            }]
+        }]);
+    });
+</script>
