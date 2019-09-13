@@ -1,6 +1,6 @@
 /* -- DO NOT REMOVE --
  * Material inspired CTXMenu 1.0 plugin
- * 
+ *
  * Author: Dionlee Uy
  * Email: dionleeuy@gmail.com
  *
@@ -8,8 +8,8 @@
  * -- DO NOT REMOVE --
  */
 if (typeof jQuery === 'undefined') { throw new Error('CTXMenu: This plugin requires jQuery'); }
- 
-+function ($) {
+
+(function ($) {
 	var CTXMenu = function(elem, options, menulist) {
 		this.elem = $(elem);
 		this.options = options;
@@ -61,7 +61,7 @@ if (typeof jQuery === 'undefined') { throw new Error('CTXMenu: This plugin requi
 
 						$(document.createElement('span'))
 							.addClass('ctxmenu-text').text(item.menu).appendTo(menuElem);
-						
+
 						menuElem.appendTo(menuWrapper);
 
 						if (item.subs && item.subs.length > 0) {
@@ -84,14 +84,14 @@ if (typeof jQuery === 'undefined') { throw new Error('CTXMenu: This plugin requi
 
 			that.create(function () {
 				that.ctxwrapper
-					.css(_anchored ? _anchorPos : 'left', 
-						_anchored ? 
-							(_anchorPos === 'left' ? that.elem.offset().left 
+					.css(_anchored ? _anchorPos : 'left',
+						_anchored ?
+							(_anchorPos === 'left' ? that.elem.offset().left
 								: $(window).width() - (that.elem.offset().left + that.elem.outerWidth()))
 							: (_isTouch ? e.originalEvent.touches[0].pageX : e.clientX) + 10)
 					.css({ top: topPos, 'transform-origin' : 'top ' + (_anchored ? _anchorPos : 'left') });
 
-				setTimeout(function () { that.ctxwrapper.addClass('ctxmenu--open') }, 10);
+				setTimeout(function () { that.ctxwrapper.addClass('ctxmenu--open'); }, 10);
 			});
 		},
 
@@ -103,7 +103,7 @@ if (typeof jQuery === 'undefined') { throw new Error('CTXMenu: This plugin requi
         },
 
         destroy: function () { this.elem.removeData('ctxmenu_data'); }
-	}
+	};
 
 	/*
 	* _ctxArgs[0] - menu list
@@ -122,29 +122,29 @@ if (typeof jQuery === 'undefined') { throw new Error('CTXMenu: This plugin requi
  				switch(options.trigger){
  					case 'right-click':
  						$this.bind('contextmenu', function (e) {
- 							data['show'](e);
-		 					return false; 
+ 							data.show(e);
+		 					return false;
 		 				});
  					break;
  					case 'click':
  						$this.on('click', function(e) {
  							if (data.ctxwrapper.is(':visible')) return;
 
- 							setTimeout(function () { data['show'](e) }, 40);
+ 							setTimeout(function () { data.show(e); }, 40);
  						});
- 					break
+ 					break;
  				}
 
 				$(document).bind("mousedown.contextmenu touchstart.contextmenu", function (e) {
 	                // Close menu when clicked outside menu
-	                if (!$(e.target).not($this).closest('.ctxmenu').length) data['hide']();
+	                if (!$(e.target).not($this).closest('.ctxmenu').length) data.hide();
 	            });
 
-	            $(window).bind('blur', function () { data['hide']() });
+	            $(window).bind('blur', function () { data.hide(); });
  			}
  			if(typeof _ctxArgs[0] === 'string') data[_ctxArgs[0]]();
 		});
-	}
+	};
 
 	$.fn.ctxmenu.defaults = {
 		theme: 'light',			// Color theme of the menu: light || dark
@@ -155,4 +155,4 @@ if (typeof jQuery === 'undefined') { throw new Error('CTXMenu: This plugin requi
         menuElem: 'nav',		// Determines the wrapper DOM element to use
         itemElem: 'nav-item'	// Determines the menu item DOM element to use
 	};
-}(jQuery);
+}(jQuery));
