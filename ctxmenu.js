@@ -51,7 +51,7 @@ if (typeof jQuery === 'undefined') { throw new Error('CTXMenu: This plugin requi
 						menuElem.addClass('ctxmenu-item');
 
 						if (item.action && !_disabled)
-							menuElem.on('click touchstart', function(e) {
+							menuElem.on('click', function(e) {
 								item.action(that.elem, e);
 								that.hide();
 							});
@@ -135,7 +135,7 @@ if (typeof jQuery === 'undefined') { throw new Error('CTXMenu: This plugin requi
  					break;
  				}
 
-				$(document).bind("mousedown.contextmenu touchstart.contextmenu", function (e) {
+				$(document).bind("mousedown.contextmenu", function (e) {
 	                // Close menu when clicked outside menu
 	                if (!$(e.target).not($this).closest('.ctxmenu').length) data.hide();
 	            });
