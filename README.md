@@ -78,7 +78,7 @@ $(document).ready(function(){
 ```
 Sample:
 
-![alt text](https://lh3.googleusercontent.com/jhcZgnUcD2FenTymXnAenCagvI7pughkJAdMoK8VCsqgh4H2iSPLJiixE28IB5NEz5Y5rywC8HCICdSaOf4mRnxtUqcXYN7ast2pCORgADcXIX_9HYu072SG_Lxu_wYuaJ8c-eJ0jTVFeFbPi20zz_Xx7N7TaJll9h53fVwy5upPPp0WDfd-z7LRJ7G52vw0EpW0wChUbhy0YUcmhVAFXnrlFH8FzG5Vs-SycyRc6UnQP9yqrZb2GCjS_llUW3aO3Xc_nfWGYXDgmyN9mzIaMQFbu8jWHocEgqPluennuyniinWdfGUZRHucELmkeyPqH0f_XlMPjhzQbyqzGUUAQtj84Ijs3RnuOy9fGYFm6CMCl3Gv2wTPJLs3GbU4XjPglnBy7bwWJt13FgLqHPmWNO1UG9ftxpr1rB05rdJESqfF6uedVyBEI67aEED1316hqT19ED4QLqPuDBB5ZFoWcIPXl-pAz5FklNdG2Pk6tUYVBs_bICDJDwp-S66pgX4EBNxGNw9Sv0Jx-okmvbXq5sU-A8jxT3Na8DZGYoIeAICAjzrIkaKUDWdU_hQfvoNQgcid0f0cThHMbxlRj2SgSe-OFEFFjBjy5p_SwGk=w196-h281-no "ctxmenu")
+![alt text](https://i.imgur.com/qy0oYrc.png "ctxmenu")
 
 Initialize with additional settings
 ``` javascript
@@ -115,7 +115,7 @@ $(document).ready(function(){
 ```
 Sample:
 
-![alt text](https://lh3.googleusercontent.com/9-G8UIpVNZdW3s4vDRfK55MIIeKb_QEKfXzmF2wIYjccstOjsSmZq0kZCGAd57qzAP4Gn1jQgmiqPvKyNExPymH5uConX_fa5uKhyeTwcKzWpiQUYkgWQt209NAgRJZof5oATm-aDuPYP6rPc22zZEly1NFTICzC3QziPndip7yggaU6KkxBRR3mzbN2y6rKIU6UfCkMgZo4jK4c74GanMqZcBosn58yP4BiQlg3MjNumB642V42IBe3NByc0RBJAXvmEfKPK7GQa6i6fnJO1faKejFI5pspMkGd8Nuk0IfIXX45Qba3ll9-O5mhYdzqcHvQ7TEVQlYQ8Yu6GPtBxeLCnZ0-IuYo2EUnbxflKTKFUWJelL_ieVF5c23xbUvvDyYppcTpI-ROEh5V-9DEdLF8vlp160ikdiCoMJuJC9ibue4Xn6tmyRNJVIdO1rX_6fFgXxlvADr91AxAemWnlTvBBGG-dIyvZm-mQZJ_S5s49l1ToiXYkWBr2PCo1R2FmbV40jua-4ExO5PE1ncbCrmWs6vz-ZEZhi5BLVXKxmr8Em23zDmSygVCDTLpDhQDkaJqcPznWLYndjeQYjTWD8DPowA2EBhkV3f_YMs=w174-h252-no "dark ctxmenu with icons")
+![alt text](https://i.imgur.com/qV1XfGm.png "dark ctxmenu with icons")
 
 ### Sub menu
 You can add sub menu by using the `subs` property of the menu object. You can still specify the `action` property even if the menu item has subs, or you can ditch it (as shown below).
@@ -152,4 +152,4 @@ $(document).ready(function(){
 ```
 Sample: 
 
-![alt text](https://lh3.googleusercontent.com/XfCg0Ede1S-2iAdv4bo63PR6JebmGtJLC4E6sbikX5qil-jPFDkTygPLh7O7dJ7mQ8hASMtRnU5wV4QFmCqduUt4-DB-pS5S30tpxffwYpPK03r1fr4kgog1KR4Asgl4IL3vamYCVTVLNGoFN2QSysk7h-Kr1-Mqk76qbyqLIIzGrBrYMzkZvStu4cqwXzOY-_5jJ2vAEioHWuSvsU4Etw18u5zMECbg-dBjCFC2xrOoodYS4xxY0J3AuYJpp7qrot_cMpnJdoVxR_vVgDfxI_uBZDgXrJOl--iLp_5Byc31a9SbDaoe2wezR0p_Sc0l7joV6WnY4VlRc02njTe6DcIkloufulNrAFC1T6VeUU1oTOZzGraFf9w7whTKDssXdIA4MoqyIiFnBGJV72u7zNE2OLb3sbjLdziXWYH2et4ugg-YGgxfk1o5G6gD9fdZvtsydNZtVUy8J5bI0Dg6giVWiokSrvzCyb-awdserK5krtxvjmZT2EJRXN9yEjvDEJ7DKw13Oe0rrZrUlXNtjvRbXSBXdZnJAI42Mm7Mf0ZvtnEg3l8RsWEJT8ZdFtVz0AGRTkSk4Krm7-S3M1FlslEuKqEEzj6vI_lz9kM=w318-h298-no "ctxmenu with subs")
+![alt text](https://i.imgur.com/Wm9MHqs.png "ctxmenu with subs")
